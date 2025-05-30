@@ -1,4 +1,4 @@
-﻿namespace MiniHub
+﻿namespace MiniHub.Core
 {
     using static System.Console;
     internal class Menu
@@ -16,9 +16,9 @@
 
         private void DisplayOption()
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.InputEncoding = System.Text.Encoding.UTF8;
-            Console.CursorVisible = false;
+            OutputEncoding = System.Text.Encoding.UTF8;
+            InputEncoding = System.Text.Encoding.UTF8;
+            CursorVisible = false;
 
             WriteLine(Prompt);
             WriteLine();

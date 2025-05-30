@@ -1,19 +1,21 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Movies
+namespace MiniHub.Movie.Serials
 {
+    using Core;
     internal class Episode
     {
         public void MyEpisode(string[] episodes, int selectedEpisodeIndex, Regex regex)
         {
             Match match = regex.Match(episodes[selectedEpisodeIndex]);
             string episodeName = match.Value;
+            ConsoleConfigurator.Configure(episodeName);
             while (true)
             {
                 string prompt = @$"   >>{episodeName}<<
 what would it be:";
-                string[] options = { "Start Episode", "Delete Episode", "Exit" };
+                string[] options = { "Start Episode", "Delete Episode", "Go Back" };
                 Menu mineMenu = new Menu(prompt, options);
                 int slectedIndex = mineMenu.Run();
                 switch (slectedIndex)
@@ -25,6 +27,8 @@ what would it be:";
                         DeleteEpisode(episodes[selectedEpisodeIndex]);
                         return;
                     case 2:
+                        Movie movie = new Movie();
+                        movie.MovieLobby();
                         return;
                 }
             }

@@ -5,11 +5,6 @@ VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHub", "MiniHub.Core\MiniHub.csproj", "{A0E4FA63-5809-47F8-BA54-C348B6CFD4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies", "Movies\Movies.csproj", "{4B3F8D7A-90EE-43BA-9701-72FA918A0DCB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A0E4FA63-5809-47F8-BA54-C348B6CFD4EF} = {A0E4FA63-5809-47F8-BA54-C348B6CFD4EF}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,12 +15,11 @@ Global
 		{A0E4FA63-5809-47F8-BA54-C348B6CFD4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0E4FA63-5809-47F8-BA54-C348B6CFD4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0E4FA63-5809-47F8-BA54-C348B6CFD4EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B3F8D7A-90EE-43BA-9701-72FA918A0DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B3F8D7A-90EE-43BA-9701-72FA918A0DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B3F8D7A-90EE-43BA-9701-72FA918A0DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B3F8D7A-90EE-43BA-9701-72FA918A0DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D19FD09-76D0-4DBF-B9E3-F63866587B14}
 	EndGlobalSection
 EndGlobal

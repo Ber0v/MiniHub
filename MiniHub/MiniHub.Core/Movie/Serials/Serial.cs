@@ -1,26 +1,28 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Movies
+namespace MiniHub.Movie.Serials
 {
-    internal class Serial
+    using Core;
+    class Serial
     {
         public void CheckSerial()
         {
+            ConsoleConfigurator.Configure("MiniHub/Movie/Serials");
             while (true)
             {
                 string prompt = @"Choose which series you are watching:";
-                string path = "D:\\Movies\\Serials\\";
+                string path = "D:\\1Berov\\Movies\\Serials\\";
                 List<string> names = Directory.GetDirectories(path)
                     .Select(d => string.Join(" ", new DirectoryInfo(d).Name.Split(' ', '.', ',').Take(3)))
                     .ToList();
-                names.Add("Exit");
+                names.Add("Go Back");
 
                 Menu mineMenu = new Menu(prompt, names.ToArray());
                 int selectedIndex = mineMenu.Run();
-                if (names[selectedIndex] == "Exit")
+                if (names[selectedIndex] == "Go Back")
                 {
-                    Program program = new Program();
-                    program.RunMainMenu();
+                    Movie movie = new Movie();
+                    movie.MovieLobby();
                 }
                 CheckEpisode(path, selectedIndex);
             }
@@ -45,13 +47,13 @@ namespace Movies
                         episodeNames.Add(episodeName);
                     }
                 }
-                episodeNames.Add("Exit");
+                episodeNames.Add("Go Back");
 
                 string[] uniqueEpisodeNames = episodeNames.Distinct().ToArray();
                 Menu episodeMenu = new Menu(prompt, uniqueEpisodeNames);
                 int selectedEpisodeIndex = episodeMenu.Run();
 
-                if (uniqueEpisodeNames[selectedEpisodeIndex] == "Exit")
+                if (uniqueEpisodeNames[selectedEpisodeIndex] == "Go Back")
                 {
                     break;
                 }
