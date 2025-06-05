@@ -1,0 +1,107 @@
+﻿namespace GamesHub.HangmanGame
+{
+    using Core;
+    internal class GameHangmanInfo
+    {
+        public void Game()
+        {
+            ConsoleConfigurator.Configure("GameHub/Hangman");
+            string prompt = @"
+
+  /\  /\__ _ _ __   __ _ _ __ ___   __ _ _ __  
+ / /_/ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+/ __  / (_| | | | | (_| | | | | | | (_| | | | |
+\/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                   |___/                       
+Welcome to the Hangman Game!";
+            string[] options = { "Play", "Settings", "How to play", "Go to menu" };
+
+            Menu mineMenu = new Menu(prompt, options);
+            int slectedIndex = mineMenu.Run();
+
+            switch (slectedIndex)
+            {
+                case 0:
+                    HangmanBG bG = new HangmanBG();
+                    bG.StartBG();
+                    break;
+                case 1:
+                    SelectMode();
+                    break;
+                case 2:
+                    Info();
+                    break;
+                case 3:
+                    GotoMenu();
+                    break;
+            }
+
+        }
+
+        public void SelectMode()
+        {
+            string prompt = @"
+
+  /\  /\__ _ _ __   __ _ _ __ ___   __ _ _ __  
+ / /_/ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+/ __  / (_| | | | | (_| | | | | | | (_| | | | |
+\/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                   |___/                       
+choose a language:";
+            string[] options = { "More Words" };
+            Menu mineMenu = new Menu(prompt, options);
+            int slectedIndex = mineMenu.Run();
+
+            switch (slectedIndex)
+            {
+                case 0:
+                    BGWords();
+                    break;
+            }
+        }
+
+        public void BGWords()
+        {
+            string word = null;
+            while (word != "end")
+            {
+                word = Console.ReadLine().ToLower();
+                var lines = File.ReadAllLines("\"P:\\\\MiniHub\\\\MiniHub\\\\GamesHub\\\\HangmanGame\\\\HangmanBG\\\\WordsBG.txt\"");
+                if (!lines.Contains(word))
+                {
+                    File.AppendAllText("\"P:\\\\MiniHub\\\\MiniHub\\\\GamesHub\\\\HangmanGame\\\\HangmanBG\\\\WordsBG.txt\"", Environment.NewLine + word);
+                    Console.WriteLine("Думата е добавена във файла.");
+                }
+            }
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey(true);
+            Game();
+        }
+
+        public void Info()
+        {
+            Console.Clear();
+            Console.WriteLine(@"
+
+  /\  /\__ _ _ __   __ _ _ __ ___   __ _ _ __  
+ / /_/ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+/ __  / (_| | | | | (_| | | | | | | (_| | | | |
+\/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                   |___/                       ");
+
+            Console.WriteLine("In this game you need to figure out the missing letters of the word...");
+            Console.WriteLine("but you only have a limitted guesses ");
+            Console.WriteLine("so be caresufull!🤗");
+
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey(true);
+            Game();
+        }
+
+        private void GotoMenu()
+        {
+            GamesHub lobby = new GamesHub();
+            lobby.RunMainMenu();
+        }
+    }
+}

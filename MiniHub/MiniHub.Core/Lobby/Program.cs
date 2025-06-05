@@ -3,6 +3,7 @@
 namespace MiniHub.Lobby
 {
     using Core;
+    using GamesHub;
     using Movie;
     internal class Program
     {
@@ -34,7 +35,8 @@ Welcome to the MiniHub. What would you like to do?
                     movie.MovieLobby();
                     break;
                 case 1:
-
+                    GamesHub game = new GamesHub();
+                    game.RunMainMenu();
                     break;
                 case 2:
                     DisplayAboutInfo();
