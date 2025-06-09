@@ -194,7 +194,7 @@ namespace GamesHub.HangmanGame
 
             using var connection = new SQLiteConnection(connectionString);
             connection.Open();
-            var command = new SQLiteCommand("SELECT Name, Score FROM Players", connection);
+            var command = new SQLiteCommand("SELECT Name, Score FROM Players ORDER BY Score DESC", connection);
             using var reader = command.ExecuteReader();
 
             while (reader.Read())

@@ -27,16 +27,19 @@ namespace GamesHub.HangmanGame
                    |___/                       
 Write your name below:");
             var repo = new HangmanRepository();
-            var players = repo.GetAllPlayers();
-            var options = players.Select(p => p.Name).ToList();
-            options.Add("Нов играч");
+            var players = repo.GetAllPlayers()
+                              .OrderByDescending(p => p.Score)
+                              .ToList();
+
+            var options = new List<string> { "Нов играч" };
+            options.AddRange(players.Select(p => p.Name));
             Menu playerMenu = new Menu("Избери име", options.ToArray());
             int choice = playerMenu.Run();
 
             string playerName;
             int playerScore;
 
-            if (choice == players.Count)
+            if (choice == 0)
             {
                 Console.Write("Въведете име: ");
                 playerName = Console.ReadLine();
@@ -53,7 +56,7 @@ Write your name below:");
             }
             else
             {
-                var player = players[choice];
+                var player = players[choice - 1];
                 playerName = player.Name;
                 playerScore = player.Score;
             }
