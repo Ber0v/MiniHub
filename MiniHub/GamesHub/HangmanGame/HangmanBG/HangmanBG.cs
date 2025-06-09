@@ -6,14 +6,14 @@ namespace GamesHub.HangmanGame
     {
         class WordGenerator
         {
+            private HangmanRepository repo = new HangmanRepository();
+
             public string GetRandomWord()
             {
-                var lines = File.ReadAllLines("P:\\MiniHub\\MiniHub\\GamesHub\\HangmanGame\\HangmanBG\\WordsBG.txt");
-                var random = new Random();
-                var word = lines[random.Next(lines.Length)];
-                return word;
+                return repo.GetRandomWord();
             }
         }
+
 
         public void StartBG()
         {

@@ -63,20 +63,30 @@ choose a language:";
         public void BGWords()
         {
             string word = null;
+            var repo = new HangmanRepository();
+            var existingWords = repo.GetAllWords();
+
             while (word != "end")
             {
+                Console.Write("Въведи дума: ");
                 word = Console.ReadLine().ToLower();
-                var lines = File.ReadAllLines("\"P:\\\\MiniHub\\\\MiniHub\\\\GamesHub\\\\HangmanGame\\\\HangmanBG\\\\WordsBG.txt\"");
-                if (!lines.Contains(word))
+
+                if (!existingWords.Contains(word) && word != "end")
                 {
-                    File.AppendAllText("\"P:\\\\MiniHub\\\\MiniHub\\\\GamesHub\\\\HangmanGame\\\\HangmanBG\\\\WordsBG.txt\"", Environment.NewLine + word);
-                    Console.WriteLine("Думата е добавена във файла.");
+                    repo.AddWord(word);
+                    Console.WriteLine("Думата е добавена в базата.");
+                }
+                else if (word != "end")
+                {
+                    Console.WriteLine("Думата вече съществува.");
                 }
             }
-            Console.WriteLine("Press any key to return to the menu.");
+
+            Console.WriteLine("Натисни произволен клавиш за връщане в менюто.");
             Console.ReadKey(true);
             Game();
         }
+
 
         public void Info()
         {
