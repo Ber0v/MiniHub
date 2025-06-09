@@ -133,6 +133,8 @@ Write your name below:");
                     LifeHangmanBG life = new LifeHangmanBG();
                     life.Life(health, noLetters, displayRefresh, playerName, playerScore);
                     Console.WriteLine("\nТи не позна думата: " + word);
+                    playerScore = 0;
+                    repo.UpdatePlayerScore(playerName, playerScore);
                 }
 
                 playAgain = AskToPlayAgain();
@@ -178,7 +180,7 @@ Write your name below:");
                 }
             }
             Thread.Sleep(200);
-            Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
+            Console.Write("\b \b\b \b\b \b\b \b\b \b\b \b\b \b\b \b\b \b\b \b");
             Console.SetCursorPosition(15, 11);
             Console.Write("\b \b");
         }

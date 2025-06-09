@@ -64,21 +64,22 @@ choose a language:";
         {
             string word = null;
             var repo = new HangmanRepository();
-            var existingWords = repo.GetAllWords();
 
             while (word != "end")
             {
                 Console.Write("Въведи дума: ");
                 word = Console.ReadLine().ToLower();
 
-                if (!existingWords.Contains(word) && word != "end")
+                if (word != "end")
                 {
-                    repo.AddWord(word);
-                    Console.WriteLine("Думата е добавена в базата.");
-                }
-                else if (word != "end")
-                {
-                    Console.WriteLine("Думата вече съществува.");
+                    if (repo.AddWord(word))
+                    {
+                        Console.WriteLine("Думата е добавена в базата.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Думата вече съществува.");
+                    }
                 }
             }
 

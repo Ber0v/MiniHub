@@ -5,6 +5,111 @@ namespace GamesHub.HangmanGame
     internal class HangmanRepository
     {
         private readonly string connectionString = "Data Source=hangman.db;Version=3;";
+        private static readonly string[] defaultWords =
+        {
+    "ябълка",
+    "компютър",
+    "игра",
+    "залез",
+    "природа",
+    "дърво",
+    "вятър",
+    "река",
+    "планина",
+    "море",
+    "слънце",
+    "звезда",
+    "луна",
+    "цвете",
+    "гора",
+    "лист",
+    "небе",
+    "птица",
+    "риба",
+    "животно",
+    "град",
+    "село",
+    "улица",
+    "къща",
+    "стена",
+    "прозорец",
+    "врата",
+    "стол",
+    "маса",
+    "книга",
+    "тетрадка",
+    "писалка",
+    "молив",
+    "училище",
+    "ученик",
+    "учител",
+    "часовник",
+    "чанта",
+    "хляб",
+    "вода",
+    "мляко",
+    "кафе",
+    "чай",
+    "захар",
+    "сол",
+    "чиния",
+    "вилица",
+    "нож",
+    "лъжица",
+    "печка",
+    "хладилник",
+    "телевизор",
+    "радио",
+    "телефон",
+    "картина",
+    "огледало",
+    "дреха",
+    "обувка",
+    "ръка",
+    "крак",
+    "глава",
+    "очи",
+    "нос",
+    "уста",
+    "коса",
+    "зъб",
+    "ухо",
+    "сърце",
+    "мозък",
+    "кръв",
+    "стомах",
+    "ръкавица",
+    "шапка",
+    "панталон",
+    "риза",
+    "яке",
+    "поле",
+    "гора",
+    "песен",
+    "филм",
+    "музика",
+    "звук",
+    "език",
+    "дума",
+    "изречение",
+    "мисъл",
+    "чувство",
+    "мечта",
+    "въпрос",
+    "отговор",
+    "истина",
+    "лъжа",
+    "приятел",
+    "враг",
+    "играчка",
+    "подарък",
+    "радост",
+    "тъга",
+    "страх",
+    "смях",
+    "плач",
+    "усмивка"
+};
 
         public List<string> GetAllWords()
         {
@@ -23,14 +128,14 @@ namespace GamesHub.HangmanGame
             return words;
         }
 
-        public void AddWord(string word)
+        public bool AddWord(string word)
         {
             using var connection = new SQLiteConnection(connectionString);
             connection.Open();
 
-            var command = new SQLiteCommand("INSERT INTO WordsBG (Word) VALUES (@word)", connection);
-            command.Parameters.AddWithValue("@word", word);
-            command.ExecuteNonQuery();
+            var command = new SQLiteCommand("INSERT OR IGNORE INTO WordsBG (Word) VALUES (@word)", connection);
+            command.Parameters.AddWithValue("@word", word.ToLower());
+            return command.ExecuteNonQuery() > 0;
         }
 
         public string GetRandomWord()
@@ -40,6 +145,24 @@ namespace GamesHub.HangmanGame
 
             var command = new SQLiteCommand("SELECT Word FROM WordsBG ORDER BY RANDOM() LIMIT 1", connection);
             return command.ExecuteScalar()?.ToString();
+        }
+        private void SeedDefaultWords()
+        {
+            using var connection = new SQLiteConnection(connectionString);
+            connection.Open();
+
+            var countCommand = new SQLiteCommand("SELECT COUNT(*) FROM WordsBG", connection);
+            long count = (long)countCommand.ExecuteScalar();
+
+            if (count == 0)
+            {
+                foreach (var word in defaultWords)
+                {
+                    var insert = new SQLiteCommand("INSERT OR IGNORE INTO WordsBG (Word) VALUES (@word)", connection);
+                    insert.Parameters.AddWithValue("@word", word.ToLower());
+                    insert.ExecuteNonQuery();
+                }
+            }
         }
         public void EnsureDatabaseCreated()
         {
@@ -129,6 +252,7 @@ namespace GamesHub.HangmanGame
         public HangmanRepository()
         {
             EnsureDatabaseCreated();
+            SeedDefaultWords();
         }
 
     }
