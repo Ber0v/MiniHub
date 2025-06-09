@@ -26,11 +26,37 @@ namespace GamesHub.HangmanGame
 \/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                    |___/                       
 Write your name below:");
-            Console.WriteLine();
-            Console.Write("Player name: ");
-            string playerName = Console.ReadLine();
+            var repo = new HangmanRepository();
+            var players = repo.GetAllPlayers();
+            var options = players.Select(p => p.Name).ToList();
+            options.Add("Нов играч");
+            Menu playerMenu = new Menu("Избери име", options.ToArray());
+            int choice = playerMenu.Run();
 
-            int playerScore = 0;
+            string playerName;
+            int playerScore;
+
+            if (choice == players.Count)
+            {
+                Console.Write("Въведете име: ");
+                playerName = Console.ReadLine();
+                var existing = repo.GetPlayer(playerName);
+                if (existing == null)
+                {
+                    repo.AddPlayer(playerName);
+                    playerScore = 0;
+                }
+                else
+                {
+                    playerScore = existing.Score;
+                }
+            }
+            else
+            {
+                var player = players[choice];
+                playerName = player.Name;
+                playerScore = player.Score;
+            }
             bool playAgain = true;
 
             while (playAgain)
@@ -94,6 +120,7 @@ Write your name below:");
                     if (word.Skip(1).Take(word.Length - 2).All(letter => guessedLetters.Contains(letter)))
                     {
                         playerScore++;
+                        repo.UpdatePlayerScore(playerName, playerScore);
                         letterGuessed = false;
                         Console.Clear();
                         Console.WriteLine("\nБраво, познахте думата: " + word);
