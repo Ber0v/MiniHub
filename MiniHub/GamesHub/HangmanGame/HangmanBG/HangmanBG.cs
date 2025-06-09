@@ -80,7 +80,6 @@ Write your name below:");
                     {
                         for (int i = 0; i < word.Length; i++)
                         {
-                            Thread.Sleep(100);
                             Console.SetCursorPosition(i * 2 + 1, 9);
                             Console.Write(i == 0 || i == word.Length - 1 || guessedLetters.Contains(word[i]) ? word[i] : '_');
                         }
