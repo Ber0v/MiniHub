@@ -18,19 +18,10 @@ namespace GamesHub.HangmanGame
         public void StartBG()
         {
             Console.Clear();
-            Console.WriteLine(@"
-
-  /\  /\__ _ _ __   __ _ _ __ ___   __ _ _ __  
- / /_/ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
-/ __  / (_| | | | | (_| | | | | | | (_| | | | |
-\/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
-                   |___/                       
-Write your name below:");
             var repo = new HangmanRepository();
             var players = repo.GetAllPlayers()
                               .OrderByDescending(p => p.Score)
                               .ToList();
-
             var options = new List<string> { "Нов играч" };
             options.AddRange(players.Select(p => p.Name));
             Menu playerMenu = new Menu("Избери име", options.ToArray());
