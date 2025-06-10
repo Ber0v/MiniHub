@@ -43,7 +43,20 @@ Welcome to the Hangman Game!";
 
         public void PlayersScore()
         {
+            ConsoleConfigurator.Configure("GameHub/Hangman/Score");
+            var repo = new HangmanRepository();
+            var players = repo.GetAllPlayers();
 
+            Console.Clear();
+            Console.WriteLine("Press any key to go back.\n");
+
+            foreach (var player in players)
+            {
+                Console.WriteLine($"<< {player.Name} - {player.Score} >>");
+            }
+
+            Console.ReadKey(true);
+            Game();
         }
 
         public void Settings()
