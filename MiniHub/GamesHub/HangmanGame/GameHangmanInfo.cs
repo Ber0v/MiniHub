@@ -14,7 +14,7 @@
 \/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                    |___/                       
 Welcome to the Hangman Game!";
-            string[] options = { "Play", "Settings", "How to play", "Go to menu" };
+            string[] options = { "Play", "players Score", "Settings", "How to play", "Go to menu" };
 
             Menu mineMenu = new Menu(prompt, options);
             int slectedIndex = mineMenu.Run();
@@ -26,15 +26,23 @@ Welcome to the Hangman Game!";
                     bG.StartBG();
                     break;
                 case 1:
-                    Settings();
+                    PlayersScore();
                     break;
                 case 2:
-                    Info();
+                    Settings();
                     break;
                 case 3:
+                    Info();
+                    break;
+                case 4:
                     GotoMenu();
                     break;
             }
+
+        }
+
+        public void PlayersScore()
+        {
 
         }
 
