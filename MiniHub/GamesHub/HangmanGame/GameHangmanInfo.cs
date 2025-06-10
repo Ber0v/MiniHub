@@ -26,7 +26,7 @@ Welcome to the Hangman Game!";
                     bG.StartBG();
                     break;
                 case 1:
-                    SelectMode();
+                    Settings();
                     break;
                 case 2:
                     Info();
@@ -38,7 +38,7 @@ Welcome to the Hangman Game!";
 
         }
 
-        public void SelectMode()
+        public void Settings()
         {
             string prompt = @"
 
