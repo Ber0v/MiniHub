@@ -17,6 +17,8 @@ namespace GamesHub.HangmanGame
 
         public void StartBG()
         {
+            ConsoleConfigurator.Configure("Hangman/players");
+
             Console.Clear();
             var repo = new HangmanRepository();
             var players = repo.GetAllPlayers()
@@ -52,6 +54,7 @@ namespace GamesHub.HangmanGame
                 playerScore = player.Score;
             }
             bool playAgain = true;
+            ConsoleConfigurator.Configure("Hangman");
 
             while (playAgain)
             {

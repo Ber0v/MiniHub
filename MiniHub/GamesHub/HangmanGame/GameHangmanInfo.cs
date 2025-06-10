@@ -61,6 +61,7 @@ Welcome to the Hangman Game!";
 
         public void Settings()
         {
+            ConsoleConfigurator.Configure("GameHub/Hangman/Settings");
             string prompt = @"
 
   /\  /\__ _ _ __   __ _ _ __ ___   __ _ _ __  
@@ -115,6 +116,8 @@ choose a language:";
 
         public void Info()
         {
+            ConsoleConfigurator.Configure("GameHub/Hangman/Info");
+
             Console.Clear();
             Console.WriteLine(@"
 
