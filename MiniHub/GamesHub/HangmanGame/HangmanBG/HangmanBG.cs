@@ -134,6 +134,12 @@ namespace GamesHub.HangmanGame
                 }
 
                 playAgain = AskToPlayAgain();
+
+                if (!playAgain)
+                {
+                    GameHangmanInfo lobby = new GameHangmanInfo();
+                    lobby.Game();
+                }
             }
         }
 
