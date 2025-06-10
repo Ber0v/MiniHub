@@ -48,7 +48,7 @@ Welcome to the Hangman Game!";
 \/ /_/ \__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                    |___/                       
 choose a language:";
-            string[] options = { "More Words" };
+            string[] options = { "More Words", "Go Back" };
             Menu mineMenu = new Menu(prompt, options);
             int slectedIndex = mineMenu.Run();
 
@@ -56,6 +56,9 @@ choose a language:";
             {
                 case 0:
                     BGWords();
+                    break;
+                case 1:
+                    Game();
                     break;
             }
         }
@@ -65,12 +68,12 @@ choose a language:";
             string word = null;
             var repo = new HangmanRepository();
 
-            while (word != "end")
+            while (word != "край")
             {
                 Console.Write("Въведи дума: ");
                 word = Console.ReadLine().ToLower();
 
-                if (word != "end")
+                if (word != "край")
                 {
                     if (repo.AddWord(word))
                     {
