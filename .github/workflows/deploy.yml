@@ -3,23 +3,24 @@ name: Deploy ClickOnce to GitHub Pages
 on:
   push:
     branches:
-      - main  # или друга твоя работна клонка
+      - main  # Или клонът, който използваш за код
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+
     steps:
-      - name: Checkout source
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Copy publish files to gh-pages
+      - name: Copy publish files
         run: |
-          mkdir deploy
-          cp -r publish/* deploy/
+          mkdir output
+          xcopy /E /Y ".\publish\*" ".\output\"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
+          publish_dir: ./output
           publish_branch: gh-pages
